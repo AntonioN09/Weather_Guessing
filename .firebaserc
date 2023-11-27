@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "weather-guessing": {
+      "hosting": {
+        "weather-guessing": [
+          "weather-guessing"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "weather-guessing"
+  }
+}

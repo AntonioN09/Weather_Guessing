@@ -1,0 +1,7 @@
+{
+  "/weather": {
+    "target": "http://dataservice.accuweather.com",
+    "secure": false,
+    "changeOrigin": true
+  }
+}
