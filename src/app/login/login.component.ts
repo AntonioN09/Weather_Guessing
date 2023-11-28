@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class LoginComponent {
   loginForm: FormGroup;
 
-  constructor(private afAuth: AngularFireAuth, private fb: FormBuilder) {
+  constructor(private authService: AuthService, private router:Router, private fb: FormBuilder) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -28,13 +29,15 @@ export class LoginComponent {
   loginWithEmailAndPassword() {
     const email = this.email!.value;
     const password = this.password!.value;
+    this.authService.login(email, password);
+    this.authService.isAuthenticated().subscribe((isAuthenticated) => {
+      if (isAuthenticated) {
+        this.router.navigate(['/private/weather']);
+      }
+    });
+  }
 
-    this.afAuth.signInWithEmailAndPassword(email, password)
-      .then(response => {
-        console.log('Login successful:', response.user);
-      })
-      .catch(error => {
-        console.error('Login error:', error.message);
-      });
+  register(){
+    this.router.navigate(['/public/registration']);
   }
 }
