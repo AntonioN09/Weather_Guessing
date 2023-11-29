@@ -12,6 +12,7 @@ import { RegistrationComponent } from './registration/registration.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientJsonpModule } from '@angular/common/http';
 import { WeatherComponent } from './weather/weather.component';
+import { GuessComponent } from './guess/guess.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { WeatherComponent } from './weather/weather.component';
     NavBarComponent,
     LoginComponent,
     RegistrationComponent,
-    WeatherComponent
+    WeatherComponent,
+    GuessComponent
   ],
   imports: [
     BrowserModule,

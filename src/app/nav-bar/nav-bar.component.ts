@@ -16,6 +16,10 @@ export class NavBarComponent {
     });
   }
 
+  register(){
+    this.router.navigate(['/public/registration']);
+  }
+
   login(): void {
     this.router.navigate(['/public/login']);
   }
@@ -23,5 +27,13 @@ export class NavBarComponent {
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/public/login']);
+  }
+
+  weather(){
+    this.router.navigate(['/private/weather']);
+  }
+
+  guess(){
+    this.router.navigate(['/private/guess']);
   }
 }

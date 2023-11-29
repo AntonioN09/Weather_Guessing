@@ -36,8 +36,4 @@ export class RegistrationComponent {
       }
     });
   }
-
-  login(){
-    this.router.navigate(['/public/login']);
-  }
 }

@@ -10,12 +10,11 @@
 <body>
     <nav class="navbar">
         <ul>
-            <li><a>Home</a></li>
-            <li><a>About</a></li>
-            <li><a>Services</a></li>
-            <li><a >Contact</a></li>
-            <button *ngIf="!isLoggedIn!" (click)="login()">Login</button>
-            <button *ngIf="isLoggedIn!" (click)="logout()">Logout</button>
+            <li *ngIf="isLoggedIn!" (click)="weather()"><a>Weather</a></li>
+            <li *ngIf="isLoggedIn!" (click)="guess()"><a>Guess</a></li>
+            <li *ngIf="isLoggedIn!" (click)="logout()"><a>Logout</a></li>
+            <li *ngIf="!isLoggedIn!" (click)="login()"><a>Login</a></li>
+            <li *ngIf="!isLoggedIn!" (click)="register()"><a>Register</a></li>
         </ul>
     </nav>
 

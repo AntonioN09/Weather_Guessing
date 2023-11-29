@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { WeatherComponent } from './weather/weather.component';
+import { GuessComponent } from './guess/guess.component';
 import { HttpClientModule } from '@angular/common/http';
 import { authGuard } from './auth.guard';
 import { publicGuard } from './public.guard';
@@ -29,7 +30,13 @@ const routes: Routes = [
     children: [
       {
         path: 'weather',
-        component: WeatherComponent, canActivate: [authGuard]
+        component: WeatherComponent,
+        canActivate: [authGuard]
+      }, 
+      {
+        path: 'guess',
+        component: GuessComponent, 
+        canActivate: [authGuard]
       }
     ]
   }
