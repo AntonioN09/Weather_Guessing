@@ -1,9 +1,11 @@
-<form [formGroup]="predictionForm" (ngSubmit)="submitForm()">
-    <label for="prediction">Enter Prediction:</label>
-    <input type="number" id="prediction" formControlName="predictionValue" />
-    <button type="submit" [disabled]="!predictionForm.valid">Submit</button>
-</form>
-<h3>Your Predictions:</h3>
-<ul>
-  <li *ngFor="let prediction of userPredictions$ | async">{{ prediction.value }} <span *ngIf="prediction.isCorrect"> Ok </span></li>
-</ul>
+<div>
+  <form [formGroup]="predictionForm" (ngSubmit)="submitForm()">
+      <label for="prediction">Enter Prediction:</label>
+      <input type="number" id="prediction" formControlName="predictionValue" />
+      <button type="submit" [disabled]="!predictionForm.valid">Submit</button>
+  </form>
+  <h3>Your Predictions:</h3>
+  <ul>
+    <li *ngFor="let prediction of userPredictions$ | async">{{ prediction.value }} <span *ngIf="prediction.isCorrect"> Ok </span></li>
+  </ul>
+</div>

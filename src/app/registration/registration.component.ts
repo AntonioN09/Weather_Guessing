@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
-  styles: []
+  styleUrls: ['./registration.component.css']
 })
 export class RegistrationComponent {
   registrationForm: FormGroup;

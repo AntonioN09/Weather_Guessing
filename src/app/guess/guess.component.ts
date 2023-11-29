@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { WeatherService } from '../weather.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import firebase from 'firebase/compat/app';
@@ -9,15 +10,16 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-prediction',
-  templateUrl: './guess.component.html'
+  templateUrl: './guess.component.html',
+  styleUrls: ['./guess.component.css']
 })
 
-export class GuessComponent {
+export class GuessComponent implements OnInit {
   user$: Observable<firebase.User | null>;
   userPredictions$: Observable<{ userId: string; value: number; time: number; isCorrect: boolean }[]>;
   predictionForm: FormGroup;
 
-  constructor(private afAuth: AngularFireAuth, private afs: AngularFirestore, private formBuilder:FormBuilder) {
+  constructor(private weatherService: WeatherService, private afAuth: AngularFireAuth, private afs: AngularFirestore, private formBuilder:FormBuilder) {
     this.user$ = this.afAuth.authState;
     this.userPredictions$ = this.user$.pipe(
       // Map not viable because it keeps previous obsevables
@@ -35,6 +37,16 @@ export class GuessComponent {
     );
     this.predictionForm = this.formBuilder.group({
       predictionValue: [null, [Validators.required, Validators.min(0)]],
+    });
+  }
+
+  temperature: any;
+
+  ngOnInit(): void {
+    this.weatherService.getWeatherData("Bucharest").subscribe(data => {
+      const fahrenheitTemp = data.DailyForecasts[0].Temperature.Maximum.Value;
+      const celciusTemp = Math.round((fahrenheitTemp - 32) * 5 / 9);
+      this.temperature = celciusTemp;
     });
   }
 
@@ -101,7 +113,7 @@ export class GuessComponent {
   async checkCorrectPrediction(): Promise<void> {
     this.userPredictions$.pipe(first()).subscribe((predictions) => {
         predictions.forEach((prediction) => {
-            if (this.isYesterday(prediction.time) && prediction.value == 5) {
+            if (this.isYesterday(prediction.time) && prediction.value == this.temperature) {
                 console.log('Correct prediction:', prediction);
                 this.updateIsCorrectInDatabase(prediction);
             }
@@ -110,7 +122,6 @@ export class GuessComponent {
   }
 
   private async updateIsCorrectInDatabase(prediction: { userId: string; time: number }): Promise<void> {
-
     const collectionRef = this.afs.collection<{ userId: string; value: number; time: number; isCorrect: boolean }>('predictions');
     
     const subscription = collectionRef.ref
@@ -123,7 +134,6 @@ export class GuessComponent {
           documentRef.update(newData);
           console.log('Updated data');
         });
-
         subscription(); 
       }, (error) => {
         console.error('Error updating document:', error);
