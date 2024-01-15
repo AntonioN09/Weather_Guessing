@@ -63,10 +63,10 @@
           },
           "configurations": {
             "production": {
-              "browserTarget": "weather-guessing:build:production"
+              "buildTarget": "weather-guessing:build:production"
             },
             "development": {
-              "browserTarget": "weather-guessing:build:development"
+              "buildTarget": "weather-guessing:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -74,7 +74,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "weather-guessing:build"
+            "buildTarget": "weather-guessing:build"
           }
         },
         "test": {

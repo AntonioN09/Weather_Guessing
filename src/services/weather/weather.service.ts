@@ -1,7 +1,7 @@
-import { Injectable, Inject } from '@angular/core';
-import { HttpClient, HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { catchError, throwError, mergeMap } from 'rxjs';
+import { catchError, throwError, switchMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -16,9 +16,10 @@ export class WeatherService {
   getLocationData(city:String): Observable<any> {
      return this.http.jsonp(`${this.locationUrl}?apikey=${this.apiKey}&q=${city}`, 'callback');
   }
+
   getWeatherData(city:String): Observable<any> {
     return this.getLocationData(city).pipe(
-      mergeMap((locationData: any) => {
+      switchMap((locationData: any) => {
         const locationKey = locationData[0]?.Key;
         if (locationKey) {
           return this.http.jsonp(`${this.weatherUrl}/${locationKey}?apikey=${this.apiKey}`, 'callback');
@@ -34,4 +35,3 @@ export class WeatherService {
     );
   }
 }
-

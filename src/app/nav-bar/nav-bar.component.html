@@ -1,26 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Navigation Bar</title>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Navigation Bar</title>
+    </head>
 
-<body>
-    <nav class="navbar">
-        <ul>
-            <li *ngIf="isLoggedIn!" (click)="weather()"><a>Weather</a></li>
-            <li *ngIf="isLoggedIn!" (click)="guess()"><a>Guess</a></li>
-            <li *ngIf="isLoggedIn!" (click)="logout()"><a>Logout</a></li>
-            <li *ngIf="!isLoggedIn!" (click)="login()"><a>Login</a></li>
-            <li *ngIf="!isLoggedIn!" (click)="register()"><a>Register</a></li>
-        </ul>
-    </nav>
-
-    <div class="content">
-        <!-- Webpage content -->
-    </div>
-</body>
-
+    <body>
+        <nav class="navbar">
+            <ul>
+                <li *ngIf="isLoggedIn!" (click)="weather()"><a>Weather</a></li>
+                <li *ngIf="isLoggedIn!" (click)="guess()"><a>Guess</a></li>
+                <li *ngIf="isLoggedIn!" (click)="logout()"><a>Logout</a></li>
+                <li *ngIf="!isLoggedIn!" (click)="login()"><a>Login</a></li>
+                <li *ngIf="!isLoggedIn!" (click)="register()"><a>Register</a></li>
+            </ul>
+        </nav>
+    </body>
 </html>

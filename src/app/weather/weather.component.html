@@ -1,6 +1,17 @@
-<div *ngIf="location">
-    <p>Location: {{ location }}</p>
-</div>
-<div *ngIf="temperature">
-    <p>Temperature: {{ temperature }}</p>
+<div>
+    <h2>Search the weather of every city</h2>
+    <form [formGroup]="weatherForm" (ngSubmit)="getWeather()">
+        <label for="cityName">City Name:</label>
+        <input type="text" id="cityName" formControlName="cityName">
+        <button type="submit" [disabled]="weatherForm.invalid">Get Weather</button>
+    </form>
+    <div *ngIf="location">
+        <p><b>Current location: </b> {{ location }}</p>
+    </div>
+    <div *ngIf="minTemp">
+        <p><b>Minimum temperature:</b> {{ minTemp }}</p>
+    </div>
+    <div *ngIf="maxTemp">
+        <p><b>Maximum temperature:</b> {{ maxTemp }}</p>
+    </div>
 </div>
